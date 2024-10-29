@@ -1,0 +1,59 @@
+{
+    "name": "theplanworks/wordpress-starter-kit",
+    "description": "Create a base Wordpress instance with dotenv support and search and replace",
+    "repositories":[
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
+    "type": "project",
+    "authors": [
+        {
+            "name": "Matt Fox",
+            "email": "matt.fox@theplanworks.com"
+        },
+        {
+            "name": "Wilson Bridgett",
+            "email": "wilson.bridgett@theplanworks.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "thePLAN\\Composer\\": "./code/scripts/"
+        }
+    },
+    "require": {
+        "php": ">=5.4",
+        "johnpbloch/wordpress": "*",
+        "vlucas/phpdotenv": "*",
+        "wpackagist-plugin/updraftplus": "*",
+        "wpackagist-plugin/wordfence": "*",
+        "mindkomm/theme-lib-mix": "^1.1"
+    },
+    "scripts": {
+        "migrate" : [
+            "thePLAN\\Composer\\Scripts::migrate"
+        ],
+        "post-install-cmd": [
+            "./code/scripts/copy-env.sh"
+        ],
+        "generate-config-with-salts" : [
+            "./code/scripts/generate-salts.sh"
+        ]
+
+    },
+    "extra": {
+        "wordpress-install-dir": "public/wp",
+        "installer-paths" : {
+            "public/content/plugins/{$name}"   : ["type:wordpress-plugin"],
+            "public/content/themes/{$name}"    : ["type:wordpress-theme"]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "johnpbloch/wordpress-core-installer": true,
+            "composer/installers": true
+        }
+    }
+}
